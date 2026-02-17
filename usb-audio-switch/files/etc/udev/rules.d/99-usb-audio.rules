@@ -1,0 +1,2 @@
+ACTION=="add", SUBSYSTEM=="sound", KERNEL=="controlC*", ENV{ID_USB_DRIVER}=="snd-usb-audio", RUN+="/opt/muos/script/system/usb-audio-switch.sh connect"
+ACTION=="remove", SUBSYSTEM=="sound", KERNEL=="controlC*", ENV{ID_USB_DRIVER}=="snd-usb-audio", RUN+="/opt/muos/script/system/usb-audio-switch.sh disconnect"

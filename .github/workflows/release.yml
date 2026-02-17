@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get short SHA
+        id: sha
+        run: echo "short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Package
+        run: zip -r usb-audio-switch.zip usb-audio-switch/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: release-${{ steps.sha.outputs.short }}
+          name: Build ${{ steps.sha.outputs.short }}
+          files: usb-audio-switch.zip
+          generate_release_notes: true
